@@ -1,0 +1,154 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="myTodoListAngJS">
+<head>
+    <title>ToDo List (Task2)</title>
+    <script src="../Libraries/angular.js"></script>
+    <link href="../Libraries/bootstrap.css" rel="stylesheet" />
+    <link href="../Libraries/bootstrap-theme.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="todo.js"></script>
+
+
+    <script>
+        //import { model } from 'model.js';
+       
+        var model = [{ 
+                title: "IT вебинар «Чем интересен Entity Framework 6?»", 
+                published: "11.02.2015 г", 
+                description: "Приглашаем начинающих и опытных .NET разработчиков, а также всех, кто интересуется новыми технологиями, принять участие в бесплатном вебинаре учебного центра CyberBionic Systematics о новых возможностях взаимодействия с базами данных, которые доступны в новой версии ADO.NET Entity Framework.", 
+                link: "http://itvdn.com/ru/news/article?id=vebinar-entity-framework6", 
+                completed: false
+            },
+            { 
+                title: "Итоги презентации Microsoft", 
+                published: "23.01.2015 г", 
+                description: "21 Января Microsoft провела первую презентацию в новом году. Публике были представлены очередные возможности Windows 10, а также другие потребительские продукты. В этой новости мы расскажем про самые интересные обновления и нововведения продуктов.", 
+                link: "http://itvdn.com/ru/news/article?id=presentation-of-microsoft",
+                completed: false
+            },
+            { 
+                title: "JavaScript назван языком 2014 года", 
+                published: "15.01.2015 г.", 
+                description: "Портал TIOBE опубликовал итоговый рейтинг языков за 2014 год, и в категории «Язык года» победителем стал - JavaScript.", 
+                link: "http://itvdn.com/ru/news/article?id=javascript-language",
+                completed: false
+            },
+            { 
+                title: "IT вебинары для начинающих программистов в январе", 
+                published: "13.01.2015 г.", 
+                description: "Приглашаем Вас на серию бесплатных вебинаров для начинающих программистов, которые состоятся 22 и 29 января.Вебинар Семантика HTML5, создаем змейку используя canvas расчитан на начинающих веб разработчиков, владеющих HTML и базовыми знаниями JavaScript.", 
+                link: "http://itvdn.com/ru/news/article?id=it-webinar-january-2015",
+                completed: false
+            },
+               
+            { 
+                title: "Microsoft планирует запустить новый браузер вместе с Windows 10", 
+                published: "06.01.2015 г.", 
+                description: "Компания Microsoft разрабатывает совершенно новый браузер, более известный под кодовым называнием “Spartan”. Он будет отличаться от Internet Explorer и войдет в новую операционную систему Windows 10. Основная задача браузера – уйти от негативного имиджа IE.", 
+                link: "http://itvdn.com/ru/news/article?id=new-browser",
+                completed: false
+             }];
+
+
+
+        var myTodoListAngJS = angular.module("myTodoListAngJS", []);
+        angular.module("myTodoListAngJS");
+        // Добавьте AngularJS контроллер
+
+
+
+        myTodoListAngJS.controller("myTodoListAngJSctrl", function ($scope) {
+           $scope.todo = model;
+           
+           $scope.pushToDosButtom = function () {
+                $scope.todo.push({
+                    title: $scope.titleTodo, 
+                    published: $scope.publishTodo, 
+                    description: $scope.descriptionTodo, 
+                    link: $scope.linkTodo,
+                    completed: $scope.completed
+                });
+            $scope.titleTodo = "";
+            $scope.publishTodo = "";
+            $scope.descriptionTodo = "";
+            $scope.linkTodo = "";
+           };
+
+           $scope.deleteToDosButtom = function (todoitem) {
+                let index = this.todo.indexOf(todoitem);
+                    if(index > -1){
+                        this.todo.splice(index, 1);
+                    }
+                };
+    
+            
+
+           // $scope.showText = function (passed) {
+           //     return passed ? "Да" : "Нет";
+           // }
+
+           // $scope.setStyle = function (passed) {
+           //     return passed ? "color:green" : "color:red; font-weight: bold";
+           // }
+       });
+             // $scope.localcash1 = (function _save() {
+            //    var casheItem = JSON.stringify(todo);
+              //      localStorage.setItem("casheItemKey", casheItem);
+             //   if (location.reload === true){
+              //      var returnItem = JSON.parse(localStorage.getItem("casheItemKey"));
+              //      todo = returnItem;
+             //   }
+           // })();
+      
+    </script>
+
+</head>
+<body ng-controller="myTodoListAngJSctrl">
+
+    <div class="container">
+
+        <h3>ToDo List</h3>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Completed</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="todos in todo">
+                    <td>{{todos.title}}</td>
+                    <td>{{todos.description}}</td>
+                    <td>{{todos.published}}</td>
+                    <td>
+                        <input type="checkbox" ng-model="todos.completed" />
+                         <button class="delete icon" ng-click="deleteToDosButtom(todos)">
+                             <i class="material-icons">delete</i>
+                        </button>
+                    </td>
+                    <!-- CheckBox чрез директиву ng-model связан со свойством passed -->
+                    
+                </tr>
+           </tbody>
+        </table>
+      
+        <!-- Форма для добавления новых задач -->
+        <div class="">
+            Name:<br/>
+            <input class="form-control" ng-model="titleTodo" /> <br/>
+            Due Data:<br/>
+            <input class="form-control" ng-model="publishTodo" /><br/>
+            Description:<br/>
+            <input class="form-control" ng-model="descriptionTodo" /><br/>
+            <label for="complededTodo">Completed:</label><br/>
+            <input type="checkbox" ng-model="completed" id="complededTodo" style="margin: 10px 10px;"/><br/>
+            
+            <button class="btn btn-default" ng-click="pushToDosButtom()" style="margin: 10px 0 80px 50%;">Add</button>
+        </div>
+    
+    </div>
+</body>
+</html>
