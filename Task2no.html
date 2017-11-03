@@ -83,13 +83,13 @@
     
             
 
-          // $scope.showText = function (passed) {
-           //   return passed ? "Да" : "Нет";
-           //}
+           // $scope.showText = function (passed) {
+           //     return passed ? "Да" : "Нет";
+           // }
 
-           $scope.setStyle = function (passed) {
-               return passed ? "background:lightgreen" : "background:rgb(120,10,20); color: white;";
-           }
+           // $scope.setStyle = function (passed) {
+           //     return passed ? "color:green" : "color:red; font-weight: bold";
+           // }
        });
              // $scope.localcash1 = (function _save() {
             //    var casheItem = JSON.stringify(todo);
@@ -119,7 +119,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="todos in todo" style="{{setStyle(todos.completed)}}">
+                <tr ng-repeat="todos in todo">
                     <td>{{todos.title}}</td>
                     <td>{{todos.description}}</td>
                     <td>{{todos.published}}</td>
